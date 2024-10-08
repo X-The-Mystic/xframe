@@ -1,0 +1,49 @@
+@import url('main.css');
+
+#logo {
+    color: #fff;
+    display: block;
+    margin-top: 10%;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+#form input {
+    font-size: 14px !important;
+    font-family: comfortaa;
+}
+
+#form input:hover {
+    cursor: pointer;
+}
+
+#form input:focus {
+    cursor: text;
+    text-align: left !important;
+}
+
+#login-box > form > input {
+    width: 75%;
+    outline: none;
+    padding-left: 5px;
+    text-align: center;
+    line-height: 2.5em;
+    font-family: comfortaa;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+}
+
+#username:focus,
+#password:focus {
+    text-align: left;
+    border: 1px solid var(--bg-color);
+}
+
+#login {
+    color: #fff !important;
+    background-color: #222 !important;
+}
+
+#login:hover {
+    background-color: #3b3b3b !important;
+}

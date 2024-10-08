@@ -1,0 +1,55 @@
+my_framework/
+│
+├── cli.py
+├── core/
+│   ├── __init__.py
+│   ├── exploit.py
+│   ├── attack.py
+│   └── utils.py
+├── exploits/
+│   ├── __init__.py
+│   ├── sudoedit/
+│   │   ├── __init__.py
+│   │   ├── sudoedit_exploit.py
+│   │   ├── suite/
+│   │   │   ├── __init__.py
+│   │   │   ├── exploit_defaults_mailer.py
+│   │   │   ├── exploit_nss_manual.py
+│   │   │   ├── exploit_cent7_userspec.py
+│   │   │   ├── exploit_userspec.py
+│   │   ├── hax/
+│   │       ├── __init__.py
+│   │       ├── lib.c
+│   │       ├── hax.c
+│   ├── windows/
+│       ├── __init__.py
+│       ├── smb_exploits/
+│       │   ├── __init__.py
+│       │   ├── eternalblue/
+│       │   │   ├── __init__.py
+│       │   │   ├── exploit2.py
+│       │   │   ├── shellcode/
+│       │   │       ├── __init__.py
+│       │   │       ├── eternalblue_sc_merge.py
+│       ├── rdp_exploits/
+│       │   ├── __init__.py
+│       │   ├── bluekeep/
+│       │   │   ├── __init__.py
+│       │   │   ├── alt/
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── empty_exploit.py
+│       │   │   │   ├── msf.rb
+│       │   │   ├── CVE-2019-0708/
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── shellcode.s
+│       │   ├── exploit.py
+├── mkdos/
+│   ├── __init__.py
+│   ├── mkdos.py
+│   └── tools/
+│       ├── __init__.py
+│       ├── crash.py
+│       ├── method.py
+├── setup.py
+├── README.md
+└── requirements.txt
