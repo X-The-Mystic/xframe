@@ -18,6 +18,7 @@ from flask import (
     url_for,
     escape,
 )
+from markupsafe import escape
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
