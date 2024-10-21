@@ -16,7 +16,6 @@ from flask import (
     jsonify,
     redirect,
     url_for,
-    escape,
 )
 from markupsafe import escape
 
