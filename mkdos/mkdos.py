@@ -44,7 +44,7 @@ if not method or not target or not time:
 
 if method == "ENVENOM":
     def envenom_attack():
-        envenom_main(target, args.payload, args.lhost, args.lport, time, args.num_packets, args.burst_interval)
+        envenom_main(target, args.payload, args.lhost, args.lport, time)
 
     threads_list = []
     for _ in range(threads):
