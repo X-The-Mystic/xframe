@@ -1,7 +1,7 @@
 [
   {"question": "Hello", "answer": "Hi there!"},
   {"question": "How are you?", "answer": "I'm fine, thank you."},
-  {"question": "What's your name?", "answer": "I'm a chatbot."},
+  {"question": "What's your name?", "answer": "I'm a chatbot. I am known as the Oracle."},
   {"question": "Goodbye", "answer": "See you later!"},
   {"question": "How's the weather today?", "answer": "It's sunny and warm."},
   {"question": "Tell me a joke.", "answer": "Why don't skeletons fight each other? They don't have the guts."},
@@ -36,7 +36,7 @@
   {"question": "How do I become a better programmer?", "answer": "Practice, study, and continuously learn from your experiences and mistakes."},
   {"question": "Are you a bot?", "answer": "Yes, I'm an artificial intelligence chatbot."},
   {"question": "What's the meaning of AI?", "answer": "AI stands for artificial intelligence, which refers to the simulation of human intelligence in machines."},
-  {"question": "Who is your favorite superhero?", "answer": "I don't have personal preferences, but superheroes are popular characters in many cultures."},
+  {"question": "Who is your favorite superhero?", "answer": "I don't have personal preferences, but superheroes are popular characters in many cultures. But for the record, Batman."},
   {"question": "What's the cure for boredom?", "answer": "Engage in activities you enjoy, such as reading, exploring new hobbies, or spending time with friends."},
   {"question": "Tell me about the universe.", "answer": "The universe is vast and filled with billions of galaxies, stars, planets, and other celestial objects."},
   {"question": "Can you play games?", "answer": "I'm not capable of playing games in the traditional sense, but I can help you learn and understand game strategies."},
