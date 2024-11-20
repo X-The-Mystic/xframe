@@ -3,7 +3,7 @@ import os
 import sys
 import argparse
 import threading
-import re
+import time
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -76,9 +76,8 @@ if method == "ENVENOM":
     threads_list = []
     for _ in range(threads):
         t = threading.Thread(target=envenom_attack)
-        t.daemon = True
-        threads_list.append(t)
         t.start()
+        threads_list.append(t)
 else:
     # Handle other methods (e.g., UDP) without requiring envenom-specific arguments
     print(f"Running attack with method: {method} on target: {target} for {time} seconds with {threads} threads.")
@@ -117,6 +116,13 @@ else:
     threads_list = []
     for _ in range(threads):
         t = threading.Thread(target=other_attack_method)
-        t.daemon = True
-        threads_list.append(t)
         t.start()
+        threads_list.append(t)
+
+# Wait for all threads to finish
+try:
+    for thread in threads_list:
+        thread.join()  # Wait for each thread to finish
+except KeyboardInterrupt:
+    print("Interrupted! Cleaning up...")
+    # Optionally, you can set a flag to stop the attack function gracefully
