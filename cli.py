@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent))
 
 # Import necessary modules
-from mkdos.mkdos import main as mkdos_main
+from flaws.mkdos import main as mkdos_main
 from exploits.sudoedit.sudoedit_exploit import run_sudoedit_exploit
 from exploits.windows.rdp_exploits.exploit import main as rdp_main
 from exploits.windows.rdp_exploits.bluekeep.exploit import main as bluekeep_main
