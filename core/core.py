@@ -5,7 +5,7 @@ import threading
 import time
 from src.network.packet_interception import PacketSniffer
 from src.data.data_preparation import DataPreparation
-from src.models.neural_network import build_model, train_model, evaluate_model
+from src.models.neural_network import build_advanced_model, train_advanced_model, evaluate_model
 from src.network.feature_extraction import PacketFeatureExtractor
 from src.ui.cli_interface import display_packets, display_menu
 from sklearn.preprocessing import StandardScaler
