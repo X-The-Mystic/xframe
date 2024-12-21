@@ -1,0 +1,15 @@
+model:
+  input_shape: [32, 32, 3]
+  optimizer: 'RMSprop'
+  learning_rate: 0.001
+  loss: 'binary_crossentropy'
+  metrics: ['accuracy']
+
+training:
+  epochs: 100
+  batch_size: 32
+  validation_split: 0.2
+
+paths:
+  model_save_path: 'models/final_model.h5'
+  data_path: 'data/packets.db' 

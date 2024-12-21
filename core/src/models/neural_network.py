@@ -15,27 +15,57 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow logging
 
-def build_model(input_dim):
+def custom_loss(y_true, y_pred):
     """
-    Build and compile a multi-layer perceptron model for threat detection.
+    Custom loss function that includes a decay term.
     """
-    model = Sequential()
-    model.add(Dense(128, activation='relu', input_dim=input_dim))
-    model.add(Dense(64, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))  # Output layer for binary classification
-    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
-    logging.info("Model built successfully.")
+    cross_entropy_loss = tf.keras.losses.binary_crossentropy(y_true, y_pred)
+    decay_term = 0.01 * tf.reduce_sum(tf.square(y_pred))
+    return cross_entropy_loss + decay_term
+
+def build_advanced_model(input_shape):
+    """
+    Build and compile an advanced neural network model.
+    """
+    try:
+        model = Sequential()
+        model.add(Conv2D(64, (3, 3), activation='relu', input_shape=input_shape))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.3))
+        model.add(Conv2D(128, (3, 3), activation='relu'))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.4))
+        model.add(Flatten())
+        model.add(Dense(256, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
+        model.add(Dropout(0.5))
+        model.add(Dense(1, activation='sigmoid'))  # Output layer for binary classification
+        model.compile(optimizer=RMSprop(learning_rate=0.001), loss=custom_loss, metrics=['accuracy'])
+        logging.info("Advanced model with custom loss built successfully.")
+    except Exception as e:
+        logging.error(f"Error building model: {e}")
+        raise
     return model
 
-def train_model(model, X_train, y_train, X_test, y_test):
+def train_advanced_model(model, X_train, y_train, X_test, y_test):
     """
-    Train the model with the provided training and testing data.
+    Train the advanced model with the provided training and testing data.
     """
-    model_checkpoint = ModelCheckpoint('best_model.keras', save_best_only=True, monitor='val_loss')
-    early_stopping = EarlyStopping(monitor='val_loss', patience=10)
+    try:
+        def lr_schedule(epoch, lr):
+            if epoch > 10:
+                return lr * 0.5
+            return lr
 
-    history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=16, 
-                        callbacks=[model_checkpoint, early_stopping], verbose=2)
+        model_checkpoint = ModelCheckpoint('best_advanced_model.keras', save_best_only=True, monitor='val_loss')
+        early_stopping = EarlyStopping(monitor='val_loss', patience=10)
+        lr_scheduler = LearningRateScheduler(lr_schedule)
+
+        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=100, batch_size=64, 
+                            callbacks=[model_checkpoint, early_stopping, lr_scheduler], verbose=2)
+        logging.info("Advanced model training completed successfully.")
+    except Exception as e:
+        logging.error(f"Error during advanced model training: {e}")
+        raise
     return history
 
 def evaluate_model(model, X_test, y_test):
@@ -102,8 +132,8 @@ if __name__ == "__main__":
 
     # Build and train the model
     input_dim = X_train.shape[1]
-    model = build_model(input_dim)
-    history = train_model(model, X_train, y_train, X_test, y_test)
+    model = build_advanced_model(input_dim)
+    history = train_advanced_model(model, X_train, y_train, X_test, y_test)
 
     # Evaluate the model
     evaluate_model(model, X_test, y_test)
