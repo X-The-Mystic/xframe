@@ -90,7 +90,7 @@ def load_model(model_path='final_model.h5'):
 
 # Example usage
 if __name__ == "__main__":
-    from skel.data_preparation import DataPreparation
+    from bin.data_preparation import DataPreparation
 
     data_preparation = DataPreparation(db_path="packets.db")
     X_train, X_test, y_train, y_test = data_preparation.prepare_data()

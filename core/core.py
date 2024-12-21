@@ -3,11 +3,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow logging (0 = all
 
 import threading
 import time
-from skel.packet_interception import PacketSniffer
-from skel.data_preparation import DataPreparation
-from skel.neural_network import build_model, train_model, evaluate_model
-from skel.feature_extraction import PacketFeatureExtractor
-from skel.cli_interface import display_packets, display_menu
+from bin.packet_interception import PacketSniffer
+from bin.data_preparation import DataPreparation
+from bin.neural_network import build_model, train_model, evaluate_model
+from bin.feature_extraction import PacketFeatureExtractor
+from bin.cli_interface import display_packets, display_menu
 from sklearn.preprocessing import StandardScaler
 import curses  # Import curses
 import sqlite3
@@ -19,6 +19,7 @@ class Firewall:
         self.feature_extractor = PacketFeatureExtractor()
         self.model = None
         self.scaler = None
+        self.running = True  # Flag to control the main loop
 
     def start_sniffer(self):
         """Start the packet sniffer in a separate thread."""
@@ -48,45 +49,46 @@ class Firewall:
 
     def run(self):
         """Run the firewall application."""
-        while True:
+        self.start_sniffer()  # Start the packet sniffer
+        while self.running:
             display_menu()  # Display the menu
             choice = input("Choose an option (1: Display Packets, 2: Exit): ")
             if choice == '1':
-                curses.wrapper(display_packets)  # Wrap display_packets with curses
+                curses.wrapper(self.display_packets_loop)  # Wrap display_packets with curses
             elif choice == '2':
-                break
+                self.running = False  # Stop the main loop
             else:
                 print("Invalid choice. Please try again.")
 
-def display_packets(stdscr):
-    stdscr.clear()
-    
-    # Connect to the database
-    conn = sqlite3.connect("packets.db")
-    cursor = conn.cursor()
-    
-    # Fetch packets
-    cursor.execute("SELECT * FROM packets")
-    packets = cursor.fetchall()
-    
-    max_display = 20  # Limit the number of packets displayed
-    for i, packet in enumerate(packets[:max_display]):
-        try:
-            # Display only relevant fields, e.g., src_ip and dst_ip
-            display_text = f"Src: {packet[1]}, Dst: {packet[2]}, Proto: {packet[3]}"
-            stdscr.addstr(i, 0, display_text[:curses.COLS - 1])  # Truncate to fit the screen
-        except curses.error:
-            stdscr.addstr(i, 0, "Error displaying packet")
-    
-    stdscr.refresh()
-    
-    # Wait for a key press
-    stdscr.addstr(len(packets[:max_display]) + 2, 0, "Press any key to exit...")
-    stdscr.refresh()
-    stdscr.getch()
-    
-    # Close the database connection
-    conn.close()
+    def display_packets_loop(self, stdscr):
+        """Continuously display packets until stopped."""
+        stdscr.clear()
+        while self.running:
+            self.display_packets(stdscr)
+            time.sleep(1)  # Refresh every second
+
+    def display_packets(self, stdscr):
+        """Fetch and display packets from the database."""
+        stdscr.clear()
+        conn = sqlite3.connect("packets.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM packets")
+        packets = cursor.fetchall()
+        max_display = 20  # Limit the number of packets displayed
+        for i, packet in enumerate(packets[:max_display]):
+            try:
+                display_text = f"Src: {packet[1]}, Dst: {packet[2]}, Proto: {packet[3]}"
+                stdscr.addstr(i, 0, display_text[:curses.COLS - 1])
+            except curses.error:
+                stdscr.addstr(i, 0, "Error displaying packet")
+        stdscr.refresh()
+        stdscr.addstr(len(packets[:max_display]) + 2, 0, "Press 'q' to exit packet view...")
+        stdscr.refresh()
+        while True:
+            key = stdscr.getch()
+            if key == ord('q'):
+                break  # Exit packet view
+        conn.close()
 
 if __name__ == "__main__":
     firewall = Firewall()

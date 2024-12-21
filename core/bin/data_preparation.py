@@ -1,7 +1,7 @@
 import sqlite3
 import numpy as np
 from sklearn.model_selection import train_test_split
-from skel.feature_extraction import PacketFeatureExtractor
+from bin.feature_extraction import PacketFeatureExtractor
 
 class DataPreparation:
     def __init__(self, db_path):
