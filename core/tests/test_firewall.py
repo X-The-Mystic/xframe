@@ -1,5 +1,5 @@
 import unittest
-from bin.feature_extraction import PacketFeatureExtractor
+from src.network.feature_extraction import PacketFeatureExtractor
 
 class TestPacketFeatureExtractor(unittest.TestCase):
     def setUp(self):

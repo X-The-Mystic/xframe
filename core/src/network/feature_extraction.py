@@ -101,7 +101,7 @@ class PacketFeatureExtractor:
         
         if payload:
             # Calculate entropy
-            byte_counts = np.bincount(np.frombuffer(payload, dtype=np.uint8), minlength=256)
+            byte_counts = np.srccount(np.frombuffer(payload, dtype=np.uint8), minlength=256)
             probabilities = byte_counts / len(payload)
             features['payload_entropy'] = entropy(probabilities)
             

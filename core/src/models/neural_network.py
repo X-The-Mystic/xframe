@@ -3,12 +3,13 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, roc_auc_score
 import matplotlib.pyplot as plt
 import logging
 import os
+from tensorflow.keras.regularizers import l2
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -19,7 +20,7 @@ def custom_loss(y_true, y_pred):
     """
     Custom loss function that includes a decay term.
     """
-    cross_entropy_loss = tf.keras.losses.binary_crossentropy(y_true, y_pred)
+    cross_entropy_loss = tf.keras.losses.srcary_crossentropy(y_true, y_pred)
     decay_term = 0.01 * tf.reduce_sum(tf.square(y_pred))
     return cross_entropy_loss + decay_term
 
@@ -29,17 +30,17 @@ def build_advanced_model(input_shape):
     """
     try:
         model = Sequential()
-        model.add(Conv2D(64, (3, 3), activation='relu', input_shape=input_shape))
+        model.add(Conv2D(64, (3, 3), activation='relu', input_shape=input_shape, kernel_regularizer=l2(0.01)))
         model.add(BatchNormalization())
         model.add(Dropout(0.3))
-        model.add(Conv2D(128, (3, 3), activation='relu'))
+        model.add(Conv2D(128, (3, 3), activation='relu', kernel_regularizer=l2(0.01)))
         model.add(BatchNormalization())
         model.add(Dropout(0.4))
         model.add(Flatten())
-        model.add(Dense(256, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
+        model.add(Dense(256, activation='relu', kernel_regularizer=l2(0.01)))
         model.add(Dropout(0.5))
-        model.add(Dense(1, activation='sigmoid'))  # Output layer for binary classification
-        model.compile(optimizer=RMSprop(learning_rate=0.001), loss=custom_loss, metrics=['accuracy'])
+        model.add(Dense(1, activation='sigmoid'))  # Output layer for srcary classification
+        model.compile(optimizer=RMSprop(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
         logging.info("Advanced model with custom loss built successfully.")
     except Exception as e:
         logging.error(f"Error building model: {e}")
@@ -120,7 +121,7 @@ def load_model(model_path='final_model.h5'):
 
 # Example usage
 if __name__ == "__main__":
-    from bin.data_preparation import DataPreparation
+    from src.data_preparation import DataPreparation
 
     data_preparation = DataPreparation(db_path="packets.db")
     X_train, X_test, y_train, y_test = data_preparation.prepare_data()
