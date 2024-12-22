@@ -73,7 +73,6 @@ class Firewall:
         """Run the firewall application."""
         self.start_sniffer()  # Start the packet sniffer
         while self.running:
-            display_menu()  # Display the menu
             choice = input("Choose an option (1: Display Packets, 2: Toggle Firewall, 3: View Logs, 4: Configure Rules, 5: Network Statistics, 6: Threat Analysis, 7: Exit): ")
             if choice == '1':
                 curses.wrapper(self.display_packets_loop)  # Wrap display_packets with curses
