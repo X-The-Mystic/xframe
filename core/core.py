@@ -7,11 +7,9 @@ from src.network.packet_interception import PacketSniffer
 from src.data.data_preparation import DataPreparation
 from src.models.neural_network import build_advanced_model, train_advanced_model, evaluate_model
 from src.network.feature_extraction import PacketFeatureExtractor
-from src.ui.cli_interface import display_packets, display_menu
-from sklearn.preprocessing import StandardScaler
+from src.logging.logging_module import log_packet_decision  # Adjust the import path as necessary
 import curses  # Import curses
 import sqlite3
-from src.logging.logging_module import log_packet_decision  # Adjust the import path as necessary
 
 class Firewall:
     def __init__(self):
