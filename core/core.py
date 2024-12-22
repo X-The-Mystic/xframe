@@ -124,14 +124,28 @@ class Firewall:
 
 def main_menu(stdscr):
     curses.curs_set(0)  # Hide the cursor
+    curses.start_color()
+    curses.init_pair(1, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     stdscr.clear()
-    display_logo()
-    menu_items = ["1: Display Packets", "2: Settings", "3: Help", "4: Exit"]
+    display_logo(stdscr)  # Pass stdscr to display_logo
+    menu_items = [
+        "1: Display Packets",
+        "2: Search Packets",
+        "3: Settings",
+        "4: Help",
+        "5: Enable/Disable Firewall",
+        "6: View Logs",
+        "7: Configure Rules",
+        "8: Network Statistics",
+        "9: Threat Analysis",
+        "10: Exit"
+    ]
     current_row = 0
 
     while True:
         stdscr.clear()
-        display_logo()
+        display_logo(stdscr)  # Pass stdscr to display_logo
         for idx, item in enumerate(menu_items):
             x = 0
             y = idx + 6
@@ -141,6 +155,7 @@ def main_menu(stdscr):
                 stdscr.attroff(curses.color_pair(1))
             else:
                 stdscr.addstr(y, x, item)
+        stdscr.addstr(len(menu_items) + 8, 0, "Use arrow keys to navigate, Enter to select", curses.color_pair(2))
         stdscr.refresh()
 
         key = stdscr.getch()
@@ -152,7 +167,8 @@ def main_menu(stdscr):
         elif key == ord('\n'):
             if current_row == len(menu_items) - 1:
                 break  # Exit the program
-            # Add more functionality for other menu items here
+            # Call corresponding functions based on the selected menu item
+            handle_menu_selection(current_row)
 
 def setup_curses():
     curses.wrapper(main_menu)
