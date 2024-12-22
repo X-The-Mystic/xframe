@@ -53,20 +53,26 @@ class Firewall:
         log_packet_decision(packet, score, action)
 
     def view_logs(self):
+        """View the last 10 log entries."""
         with open('firewall.log', 'r') as log_file:
             logs = log_file.readlines()
             for log in logs[-10:]:  # Display the last 10 log entries
                 print(log.strip())
 
     def configure_rules(self):
-        print("Configure firewall rules (not implemented).")
+        """Configure firewall rules."""
+        print("Configure firewall rules...")
+        # Here you can implement logic to add or remove rules
 
     def display_statistics(self):
-        print("Network statistics (not implemented).")
+        """Display network statistics."""
+        print("Displaying network statistics...")
+        # Here you can implement logic to gather and display statistics
 
     def threat_analysis(self):
+        """Perform threat analysis."""
         print("Performing threat analysis...")
-        # Implement threat analysis logic here
+        # Here you can implement logic to analyze threats based on captured packets
 
     def run(self):
         """Run the firewall application."""
@@ -122,6 +128,36 @@ class Firewall:
                 break  # Exit packet view
         conn.close()
 
+def handle_menu_selection(selection):
+    """Handle the menu selection based on user input."""
+    if selection == 0:
+        print("Displaying packets...")
+        # Implement display packets logic here
+    elif selection == 1:
+        print("Searching packets...")
+        # Implement search packets logic here
+    elif selection == 2:
+        print("Opening settings...")
+        # Implement settings logic here
+    elif selection == 3:
+        print("Displaying help...")
+        # Implement help logic here
+    elif selection == 4:
+        print("Toggling firewall...")
+        # Implement toggle firewall logic here
+    elif selection == 5:
+        print("Viewing logs...")
+        # Implement view logs logic here
+    elif selection == 6:
+        print("Configuring rules...")
+        # Implement configure rules logic here
+    elif selection == 7:
+        print("Displaying network statistics...")
+        # Implement network statistics logic here
+    elif selection == 8:
+        print("Performing threat analysis...")
+        # Implement threat analysis logic here
+
 def main_menu(stdscr):
     curses.curs_set(0)  # Hide the cursor
     curses.start_color()
@@ -167,8 +203,7 @@ def main_menu(stdscr):
         elif key == ord('\n'):
             if current_row == len(menu_items) - 1:
                 break  # Exit the program
-            # Call corresponding functions based on the selected menu item
-            handle_menu_selection(current_row)
+            handle_menu_selection(current_row)  # Call the function to handle the selection
 
 def setup_curses():
     curses.wrapper(main_menu)

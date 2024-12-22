@@ -46,16 +46,16 @@ def __GetEmailMessage():
     body = input(f"{Fore.BLUE}[?] {Fore.MAGENTA}Enter Your Message (leave blank for random value): ")
     return [server, username, subject, body]
 
-def GetTargetAddress(target, method):
-    if method == "SMS":
+def GetTargetAddress(target, vector):
+    if vector == "SMS":
         if target.startswith("+"):
             target = target[1:]
         return target
-    elif method == "EMAIL":
+    elif vector == "EMAIL":
         email = __GetEmailMessage()
         email.append(target)
         return email
-    elif method in (
+    elif vector in (
         "SYN",
         "UDP",
         "NTP",
@@ -69,9 +69,9 @@ def GetTargetAddress(target, method):
         origin = socket.gethostbyname(domain)
         __isCloudFlare(domain)
         return origin, 80
-    elif method in ("SYN", "UDP", "NTP", "POD", "MEMCACHED", "ICMP", "SLOWLORIS"):
+    elif vector in ("SYN", "UDP", "NTP", "POD", "MEMCACHED", "ICMP", "SLOWLORIS"):
         return __GetAddressInfo(target)
-    elif method == "HTTP":
+    elif vector == "HTTP":
         url = __GetURLInfo(target)
         __isCloudFlare(url)
         return url

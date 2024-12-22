@@ -10,7 +10,7 @@ try:
     import tools.addons.clean
     import tools.addons.logo
     import tools.addons.winpcap
-    from tools.method import AttackMethod
+    from tools.vector import Attackvector
 except  ImportError as  err:
     CriticalError("Failed import some modules", err)
     sys.exit(1)
@@ -23,10 +23,10 @@ parser.add_argument(
     help="Target IP:port, url or phone",
 )
 parser.add_argument(
-    "--method",
+    "--vector",
     type=str,
     metavar="<SMS/EMAIL/NTP/UDP/SYN/ICMP/POD/SLOWLORIS/MEMCACHED/HTTP>",
-    help="Attack method",
+    help="Attack vector",
 )
 parser.add_argument(
     "--time",
@@ -45,15 +45,15 @@ parser.add_argument(
 args = parser.parse_args()
 threads = args.threads
 time = args.time
-method = str(args.method).upper()
+vector = str(args.vector).upper()
 target = args.target
 
 if __name__ == "__main__":
-    if not method or not target or not time:
+    if not vector or not target or not time:
         parser.print_help()
         sys.exit(1)
 
-    with AttackMethod(
-        duration=time, name=method, threads=threads, target=target
+    with Attackvector(
+        duration=time, name=vector, threads=threads, target=target
     ) as Flood:
         Flood.Start()

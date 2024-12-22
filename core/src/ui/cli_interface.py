@@ -1,5 +1,6 @@
 import sqlite3
 import curses
+from core import Firewall  # Import the Firewall class
 
 def display_logo(stdscr):
     logo = """                                  
@@ -60,33 +61,39 @@ def main_menu(stdscr):
             handle_menu_selection(current_row)
 
 def handle_menu_selection(selection):
+    firewall = Firewall()  # Create an instance of the Firewall class
     if selection == 0:
-        # Call function to display packets
-        pass  # Implement display packets logic
+        firewall.display_packets_loop()  # Call function to display packets
     elif selection == 1:
-        # Call function to search packets
-        pass  # Implement search packets logic
+        search_packets()  # Call function to search packets
     elif selection == 2:
-        # Call function for settings
-        pass  # Implement settings logic
+        open_settings()  # Call function for settings
     elif selection == 3:
-        # Call function for help
-        pass  # Implement help logic
+        display_help()  # Call function to display help
     elif selection == 4:
-        # Toggle firewall
-        pass  # Implement toggle firewall logic
+        firewall.firewall_enabled = not firewall.firewall_enabled
+        status = "enabled" if firewall.firewall_enabled else "disabled"
+        print(f"Firewall is now {status}.")  # Toggle firewall
     elif selection == 5:
-        # View logs
-        pass  # Implement view logs logic
+        firewall.view_logs()  # View logs
     elif selection == 6:
-        # Configure rules
-        pass  # Implement configure rules logic
+        firewall.configure_rules()  # Configure rules
     elif selection == 7:
-        # Display network statistics
-        pass  # Implement network statistics logic
+        firewall.display_statistics()  # Display network statistics
     elif selection == 8:
-        # Perform threat analysis
-        pass  # Implement threat analysis logic
+        firewall.threat_analysis()  # Perform threat analysis
+
+def search_packets():
+    print("Searching packets...")  # Implement search packets logic
+    # Here you can add logic to search packets in the database
+
+def open_settings():
+    print("Opening settings...")  # Implement settings logic
+    # Here you can add logic to modify settings
+
+def display_help():
+    print("Displaying help...")  # Implement help logic
+    # Here you can add logic to display help information
 
 if __name__ == "__main__":
     curses.wrapper(main_menu) 

@@ -239,7 +239,7 @@
 		},
 		{
 			"url": "https://www.nl.ua",
-			"data": "{'phone':'%phone%','method':'sendCode','registration':'N','sessid':'bf70db951f54b837748f69b75a61deb4','component':'bxmaker.authuserphone.login'}"
+			"data": "{'phone':'%phone%','vector':'sendCode','registration':'N','sessid':'bf70db951f54b837748f69b75a61deb4','component':'bxmaker.authuserphone.login'}"
 		},
 		{
 			"url": "https://nn-card.ru/api/1.0/covid/login",
@@ -254,7 +254,7 @@
 		},
 		{
 			"url": "https://pizzakazan.com/auth/ajax.php",
-			"data": "{'phone':'+%phone%','method':'sendCode'}"
+			"data": "{'phone':'+%phone%','vector':'sendCode'}"
 		},
 		{
 			"url": "https://pizzasinizza.ru/api/phoneCode.php",
@@ -428,7 +428,7 @@
 		},
 		{
 			"url": "https://www.nl.ua",
-			"data": "{'component':'bxmaker.authuserphone.login', 'sessid':'bf70db951f54b837748f69b75a61deb4', 'method':'sendCode','phone':'%phone%','registration':'N'}"
+			"data": "{'component':'bxmaker.authuserphone.login', 'sessid':'bf70db951f54b837748f69b75a61deb4', 'vector':'sendCode','phone':'%phone%','registration':'N'}"
 		},
 		{
 			"url": "https://p.grabtaxi.com/api/passenger/v2/profiles/register",
