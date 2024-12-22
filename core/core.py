@@ -10,6 +10,7 @@ from src.network.feature_extraction import PacketFeatureExtractor
 from src.logging.logging_module import log_packet_decision  # Adjust the import path as necessary
 import curses  # Import curses
 import sqlite3
+from src.ui.cli_interface import display_logo
 
 class Firewall:
     def __init__(self):
