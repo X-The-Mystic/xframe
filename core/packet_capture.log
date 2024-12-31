@@ -1,9 +1,0 @@
-2024-12-18 19:43:23,601 - INFO - generated new fontManager
-2024-12-18 19:44:45,902 - INFO - Starting packet capture on interface eth0
-2024-12-18 19:44:45,903 - ERROR - Error in packet capture: [Errno 1] Operation not permitted
-2024-12-18 19:52:02,333 - INFO - generated new fontManager
-2024-12-18 19:52:03,228 - INFO - Starting packet capture on interface eth0
-2024-12-18 19:55:34,153 - INFO - Starting packet capture on interface eth0
-2024-12-18 19:55:44,638 - INFO - Model built successfully.
-2024-12-18 19:57:02,816 - INFO - Starting packet capture on interface eth0
-2024-12-18 19:57:13,287 - INFO - Model built successfully.

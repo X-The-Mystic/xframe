@@ -1,7 +1,7 @@
 XFrame: A Comprehensive Framework for Cybersecurity and Penetration Testing
 =====================================================================
 
-XFrame is a cutting-edge framework designed to facilitate cybersecurity and penetration testing efforts. This comprehensive toolset is tailored to assist security professionals in identifying vulnerabilities, simulating attacks, and strengthening defenses. XFrame encompasses a wide range of features and tools, making it an invaluable asset for any organization seeking to bolster its cybersecurity posture.
+XFrame is a cutting-edge framework designed to facilitate cybersecurity and penetration testing efforts. This comprehensive toolset is tailored to assist security professionals in identifying vulnerabilities, simulating attacks, and strengthening defenses. XFrame encompasses a wide range of features and tools, making it an invaluable asset for any organization seeking to bolster its cybersecurity posture. Please note that it is still under heavy development, and some parts may be further behind than others.
 
 Key Features and Tools
 --------------------
@@ -16,6 +16,11 @@ XFrame includes a robust exploitation framework, allowing users to identify and 
 - **EternalChampion, CVE-2017-2671:** The EternalChampion exploit is a remote code execution vulnerability in the Apache HTTP Server, affecting versions 2.4.0 to 2.4.49. It was part of the ShadowBrokers dump, a collection of exploits and tools leaked from the NSA. This exploit allows an attacker to execute arbitrary code on a vulnerable Apache HTTP Server without authentication via the SMB protocol.
 - **EternalRomance, CVE-2017-0143:** The EternalRomance exploit is a remote code execution vulnerability in the SMBv1 server in Windows operating systems. It was part of the EternalBlue exploit dump by the ShadowBrokers group. This exploit allows an attacker to execute arbitrary code on the target system without authentication. Valid on Windows XP to Windows Server 2016.
 - **EternalSynergy, CVE-2019-1040:** The EternalSynergy exploit is a remote code execution vulnerability in the SMBv3 server in Windows operating systems. It was part of the EternalSynergy exploit dump by the ShadowBrokers group. This exploit allows an attacker to execute arbitrary code on the target system without authentication. Valid on Windows Vista to Windows 10.
+- **Log4Shell, CVE-2021-44228:** The Log4Shell exploit is a critical remote code execution vulnerability in the Apache Log4j 2 library, a popular Java-based logging utility. This vulnerability allows an attacker to execute arbitrary code on a server by sending a specially crafted request that includes a malicious payload. The exploit leverages the JNDI (Java Naming and Directory Interface) lookup feature in Log4j 2, which can be tricked into loading and executing code from an attacker-controlled server. This vulnerability affects Log4j versions 2.0-beta9 to 2.14.1 and has been widely exploited in the wild, posing a significant threat to any application using the vulnerable versions of Log4j 2.
+- **BlackPulse, CVE to be assigned** The BlackPulse exploit is a critical remote code execution vulnerability in the OpenSSL library, a widely used cryptographic software library. This vulnerability allows an attacker to execute arbitrary code on a server by sending a specially crafted request that includes a malicious payload. The exploit leverages a buffer overflow in the OpenSSL library, which can be triggered by a malformed certificate. This vulnerability affects OpenSSL versions 1.1.1 to 1.1.1k and has the potential to be widely exploited in the wild, posing a significant threat to any application using the vulnerable versions of OpenSSL.
+- **PseudoEphedrine, CVE to be assigned** The PseudoEphedrine exploit is a privilege escalation vulnerability in the Linux kernel, affecting versions 5.4 to 5.10. This exploit allows an attacker to gain root privileges on a vulnerable system by exploiting a race condition in the kernel's handling of user namespaces. The vulnerability can be triggered by a local user with access to the system, making it a significant threat to multi-user environments. The exploit has been observed in targeted attacks and is considered highly dangerous due to its potential for complete system compromise.
+
+
 
 ### MkDoS: Denial-of-Service Attack Toolkit
 
@@ -33,9 +38,6 @@ MkDoS is a powerful toolkit integrated into XFrame, designed to simulate Denial-
 - **Memcached**: A memcached distributed denial-of-service (DDoS) attack is a type of cyber attack in which an attacker attempts to overload a targeted victim with internet traffic. The attacker spoofs requests to a vulnerable UDP memcached* server, which then floods a targeted victim with internet traffic, potentially overwhelming the victim’s resources. While the target’s internet infrastructure is overloaded, new requests cannot be processed and regular traffic is unable to access the internet resource, resulting in denial-of-service.
 - **Envenom**: EnVenom is a utility that utilizes the msfvenom utility created by Metasploit's rapid7. It is a DoS attack that uses msfvenom to generate a payload, then encrypts it across the TCP protocol with a tag that decrypts it once it reaches its intended target. Once decrypted, it can do numerous things, from wiping data to opening a reverse TCP shell. The sheer number of these payloads should yield an exhaustion of resources. It is still experimental, though.
 
-### Loki: Network Traffic Analysis and Manipulation
-
-Loki is a sophisticated tool within XFrame, focused on network traffic analysis and manipulation. It allows users to capture, analyze, and modify network traffic in real-time, facilitating the detection of malicious activity and the development of countermeasures.
 
 ### Additional Features
 
@@ -50,7 +52,7 @@ To get started with XFrame, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/X-The-Mystic/xframe.git`
 2. Install dependencies: `chmod +x installation.sh && ./installation.sh`
-3. CD into the relevant directory (example: `cd exploits/windows/smb_exploits/eternalchampion`)
+3. CD into the relevant directory (example: `cd malware/exploits/windows/eternalleaks/eternalchampion`)
 4. Run the exploit or relevant tool: (example: `python poc1.py`)
 
 Licensing and Disclaimer
@@ -66,5 +68,4 @@ XFrame is an open-source project, and we welcome contributions from the security
 Stay Secure
 ------------
 
-XFrame is a powerful tool for cybersecurity professionals. Use it responsibly to strengthen your organization's defenses and contribute to a safer digital world.
 
