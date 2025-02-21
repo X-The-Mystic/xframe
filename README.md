@@ -6,7 +6,7 @@ XFrame is a cutting-edge framework designed to facilitate cybersecurity and pene
 Key Features and Tools
 --------------------
 
-### Exploitation Framework
+## Exploitation Framework
 
 XFrame includes a robust exploitation framework, allowing users to identify and exploit vulnerabilities in various systems and applications. The exploits covered are:
 
@@ -23,7 +23,9 @@ XFrame includes a robust exploitation framework, allowing users to identify and 
 - **JewelRunner**: This exploit focuses on uploading and executing files on a target system. It includes options for specifying target OS, IP address, and file paths, making it adaptable for different environments. The exploit is designed to bypass security measures and gain unauthorized access. Affects Apache 2.62
 - **MysticTunnel**: A tunneling tool that facilitates secure communication between a client and server. It is used to bypass network restrictions and establish a covert channel for data exfiltration or command execution.
 - **PolarWinds**: This exploit leverages path traversal and remote code execution vulnerabilities in web applications. It involves sending crafted requests to execute commands on the server, often used to gain unauthorized access or escalate privileges. Affects Apache 2.41.
-- **PseudoEphedrine**: A privilege escalation exploit targeting the Linux kernel. It exploits a race condition to gain root privileges, posing a significant threat to multi-user environments. 
+- **PseudoEphedrine**: A privilege escalation exploit targeting the Linux kernel. It exploits a race condition to gain root privileges, posing a significant threat to multi-user environments.
+- **goldenRAG**: The goldenRAG exploit targets Generative AI (GenAI) ecosystems by leveraging adversarial self-replicating prompts. It is designed to infiltrate GenAI-powered applications, such as email assistants, to perform malicious activities like spamming and data exfiltration. The exploit manipulates the GenAI models to replicate and propagate the malicious prompts across the ecosystem, affecting models like Gemini Pro, ChatGPT 4.0, and LLaVA. This exploit demonstrates the potential risks associated with interconnected GenAI services and highlights the need for robust security measures in AI-driven environments.
+- **FlowSteering**: The FlowSteering exploit focuses on manipulating GenAI-powered applications by perturbing images to generate specific text outputs. It targets email applications by sending emails with manipulated images that influence the application's behavior. The exploit involves creating perturbations that steer the application towards specific actions, such as forwarding or classifying emails as spam. This technique showcases the vulnerabilities in GenAI systems when handling multimedia inputs and emphasizes the importance of securing AI models against adversarial attacks.
 
 
 ### MkDoS: Denial-of-Service Attack Toolkit
@@ -34,20 +36,19 @@ MkDoS is a powerful toolkit integrated into XFrame, designed to simulate Denial-
 - **EMAIL**: Sends a massive amount of Email messages to a target.
 - **NTP**: NTP amplification is a type of Distributed Denial of Service (DDoS) attack in which the attacker exploits publically-accessible Network Time Protocol (NTP) servers to overwhelm the targeted with User Datagram Protocol (UDP) traffic.
 - **SYN**: A SYN flood (half-open attack) is a type of denial-of-service (DDoS) attack which aims to make a server unavailable to legitimate traffic by consuming all available server resources.
-- **UDP**: A UDP flood is a type of denial-of-service attack in which a large number of User Datagram Protocol (UDP) packets are sent to a targeted server with the aim of overwhelming that device’s ability to process and respond. The firewall protecting the targeted server can also become exhausted as a result of UDP flooding, resulting in a denial-of-service to legitimate traffic.
+- **UDP**: A UDP flood is a type of denial-of-service attack in which a large number of User Datagram Protocol (UDP) packets are sent to a targeted server with the aim of overwhelming that device's ability to process and respond. The firewall protecting the targeted server can also become exhausted as a result of UDP flooding, resulting in a denial-of-service to legitimate traffic.
 - **POD (Ping of Death)**: Ping of Death (a.k.a. PoD) is a type of Denial of Service (DoS) attack in which an attacker attempts to crash, destabilize, or freeze the targeted computer or service by sending malformed or oversized packets using a simple ping command.
 - **ICMP**: Ping flood, also known as ICMP flood, is a common Denial of Service (DoS) attack in which an attacker takes down a victim's computer by overwhelming it with ICMP echo requests, also known as pings.
 - **HTTP**: HTTP Flood is a type of Distributed Denial of Service (DDoS) attack in which the attacker manipulates HTTP and POST unwanted requests in order to attack a web server or application. These attacks often use interconnected computers that have been taken over with the aid of malware such as Trojan Horses.
 - **Slowloris**: Slowloris is a denial-of-service attack program which allows an attacker to overwhelm a targeted server by opening and maintaining many simultaneous HTTP connections between the attacker and the target.
-- **Memcached**: A memcached distributed denial-of-service (DDoS) attack is a type of cyber attack in which an attacker attempts to overload a targeted victim with internet traffic. The attacker spoofs requests to a vulnerable UDP memcached* server, which then floods a targeted victim with internet traffic, potentially overwhelming the victim’s resources. While the target’s internet infrastructure is overloaded, new requests cannot be processed and regular traffic is unable to access the internet resource, resulting in denial-of-service.
+- **Memcached**: A memcached distributed denial-of-service (DDoS) attack is a type of cyber attack in which an attacker attempts to overload a targeted victim with internet traffic. The attacker spoofs requests to a vulnerable UDP memcached* server, which then floods a targeted victim with internet traffic, potentially overwhelming the victim's resources. While the target's internet infrastructure is overloaded, new requests cannot be processed and regular traffic is unable to access the internet resource, resulting in denial-of-service.
 - **Envenom**: EnVenom is a utility that utilizes the msfvenom utility created by Metasploit's rapid7. It is a DoS attack that uses msfvenom to generate a payload, then encrypts it across the TCP protocol with a tag that decrypts it once it reaches its intended target. Once decrypted, it can do numerous things, from wiping data to opening a reverse TCP shell. The sheer number of these payloads should yield an exhaustion of resources. It is still experimental, though.
-
 
 ### Additional Features
 
-* **Vulnerability Scanner**: A comprehensive scanner for identifying vulnerabilities in systems, applications, and networks.
-* **Password Cracking**: A suite of tools for password cracking and password strength analysis.
-* **Network Mapping**: A feature for mapping network topologies, identifying hosts, and detecting open ports.
+- **Vulnerability Scanner**: A comprehensive scanner for identifying vulnerabilities in systems, applications, and networks.
+- **Password Cracking**: A suite of tools for password cracking and password strength analysis.
+- **Network Mapping**: A feature for mapping network topologies, identifying hosts, and detecting open ports.
 
 Getting Started
 ---------------
@@ -67,9 +68,7 @@ XFrame is released under the MIT license. Please note that XFrame is intended fo
 Contributing
 ------------
 
-XFrame is an open-source project, and we welcome contributions from the security community. If you're interested in contributing, please submit a pull request or contact us at xtm@cerberusdev.com.
+XFrame is an open-source project, and we welcome contributions from the security community. If you're interested in contributing, please submit a pull request or contact us at <xtm@cerberusdev.com>.
 
 Stay Secure
 ------------
-
-
