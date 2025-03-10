@@ -1,7 +1,7 @@
 XFrame: A Comprehensive Framework for Cybersecurity and Penetration Testing
 =====================================================================
 
-XFrame is a cutting-edge framework designed to facilitate cybersecurity and penetration testing efforts. This comprehensive toolset is tailored to assist security professionals in identifying vulnerabilities, simulating attacks, and strengthening defenses. XFrame encompasses a wide range of features and tools, making it an invaluable asset for any organization seeking to bolster its cybersecurity posture. Please note that it is still under heavy development, and some parts may be further behind than others.
+XFrame is a cutting-edge framework designed to facilitate cybersecurity and penetration testing efforts. This comprehensive toolset is tailored to assist security professionals in identifying vulnerabilities, simulating attacks, and strengthening defenses. XFrame encompasses a wide range of features and tools, making it an invaluable asset for any organization seeking to bolster its cybersecurity posture. I specifically designed it under the philosophy that no knowledge deserves to be censored, and that the world of malware need be no different. Please note that it is still under heavy development, and some parts may be further behind than others.
 
 Key Features and Tools
 --------------------
