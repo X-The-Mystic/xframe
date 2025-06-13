@@ -68,7 +68,7 @@ XFrame is released under the MIT license. Please note that XFrame is intended fo
 Contributing
 ------------
 
-XFrame is an open-source project, and we welcome contributions from the security community. If you're interested in contributing, please submit a pull request or contact us at <xtm@cerberusdev.com>.
+XFrame is an open-source project, and I welcome contributions from the security community. If you're interested in contributing, please submit a pull request or contact me at <xtm@cerberusdev.com>.
 
 Stay Secure
 ------------
